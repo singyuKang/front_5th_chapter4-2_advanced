@@ -1,18 +1,45 @@
 import { Lecture } from "@/types/types";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
-export const fetchMajors = () => axios.get<Lecture[]>("/schedules-majors.json");
-
-export const fetchLiberalArts = () =>
+const fetchMajors = () => axios.get<Lecture[]>("/schedules-majors.json");
+const fetchLiberalArts = () =>
   axios.get<Lecture[]>("/schedules-liberal-arts.json");
 
-// TODO: 이 코드를 개선해서 API 호출을 최소화 해보세요 + Promise.all이 현재 잘못 사용되고 있습니다. 같이 개선해주세요.
-export const fetchAllLectures = async () =>
-  await Promise.all([
-    (console.log("API Call 1", performance.now()), await fetchMajors()),
-    (console.log("API Call 2", performance.now()), await fetchLiberalArts()),
-    (console.log("API Call 3", performance.now()), await fetchMajors()),
-    (console.log("API Call 4", performance.now()), await fetchLiberalArts()),
-    (console.log("API Call 5", performance.now()), await fetchMajors()),
-    (console.log("API Call 6", performance.now()), await fetchLiberalArts()),
-  ]);
+// 간단한 메모리 캐시
+let majorsCache: Promise<AxiosResponse<Lecture[]>> | null = null;
+let liberalArtsCache: Promise<AxiosResponse<Lecture[]>> | null = null;
+
+const getCachedMajors = () => {
+  if (!majorsCache) {
+    console.log("전공 데이터 새로 요청", performance.now());
+    majorsCache = fetchMajors();
+  } else {
+    console.log("전공 데이터 캐시 사용", performance.now());
+  }
+  return majorsCache;
+};
+
+const getCachedLiberalArts = () => {
+  if (!liberalArtsCache) {
+    console.log("교양 데이터 새로 요청", performance.now());
+    liberalArtsCache = fetchLiberalArts();
+  } else {
+    console.log("교양 데이터 캐시 사용", performance.now());
+  }
+  return liberalArtsCache;
+};
+
+export const fetchAllLectures = async () => {
+  console.log("API 호출 시작", performance.now());
+
+  const promises = [
+    getCachedMajors(), // 1번째 호출 시에만 실제 API 요청
+    getCachedLiberalArts(), // 1번째 호출 시에만 실제 API 요청
+    getCachedMajors(), // 캐시된 Promise 재사용
+    getCachedLiberalArts(), // 캐시된 Promise 재사용
+    getCachedMajors(), // 캐시된 Promise 재사용
+    getCachedLiberalArts(), // 캐시된 Promise 재사용
+  ];
+
+  return await Promise.all(promises);
+};
