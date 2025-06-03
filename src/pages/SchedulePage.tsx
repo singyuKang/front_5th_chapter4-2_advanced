@@ -1,4 +1,4 @@
-import { ScheduleTables } from "@/components/ScheduleTables";
+import { ScheduleTables } from "@/components/table/ScheduleTables";
 
 const SchedulePage = () => {
   return (
