@@ -4,8 +4,8 @@ import React, {
   useContext,
   useState,
 } from "react";
-import { Schedule } from "../types/types.ts";
-import dummyScheduleMap from "../mocks/dummyScheduleMap.ts";
+import { Schedule } from "@/types/types.ts";
+import dummyScheduleMap from "@/mocks/dummyScheduleMap.ts";
 
 interface ScheduleContextType {
   schedulesMap: Record<string, Schedule[]>;
