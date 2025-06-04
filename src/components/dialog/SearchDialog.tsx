@@ -14,17 +14,18 @@ import { Lecture } from "@/types/types.ts";
 import { parseSchedule } from "@/utils/utils.ts";
 import { PAGE_SIZE } from "@/constants/constants.ts";
 import { Props, SearchOption } from "@/components/dialog/types";
-import { fetchAllLectures } from "@/api/lectures";
 import SearchFilters from "./SearchFilters";
 import LectureTable from "./LectureTable";
+import { useLectureData } from "@/hooks/useLectureData";
 
 // TODO: 이 컴포넌트에서 불필요한 연산이 발생하지 않도록 다양한 방식으로 시도해주세요.
 const SearchDialog = ({ searchInfo, onClose }: Props) => {
   const { setSchedulesMap } = useScheduleContext();
 
+  const { lectures, allMajors } = useLectureData();
+
   const loaderWrapperRef = useRef<HTMLDivElement>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
-  const [lectures, setLectures] = useState<Lecture[]>([]);
   const [page, setPage] = useState(1);
   const [searchOptions, setSearchOptions] = useState<SearchOption>({
     query: "",
@@ -77,10 +78,6 @@ const SearchDialog = ({ searchInfo, onClose }: Props) => {
     () => filteredLectures.slice(0, page * PAGE_SIZE),
     [filteredLectures, page]
   );
-  const allMajors = useMemo(
-    () => [...new Set(lectures.map((lecture) => lecture.major))],
-    [lectures]
-  );
 
   const changeSearchOption = useCallback(
     (field: keyof SearchOption, value: SearchOption[typeof field]) => {
@@ -111,17 +108,6 @@ const SearchDialog = ({ searchInfo, onClose }: Props) => {
     },
     [onClose, searchInfo, setSchedulesMap]
   );
-
-  useEffect(() => {
-    const start = performance.now();
-    console.log("API 호출 시작: ", start);
-    fetchAllLectures().then((results) => {
-      const end = performance.now();
-      console.log("모든 API 호출 완료 ", end);
-      console.log("API 호출에 걸린 시간(ms): ", end - start);
-      setLectures(results.flatMap((result) => result.data));
-    });
-  }, []);
 
   useEffect(() => {
     const $loader = loaderRef.current;
