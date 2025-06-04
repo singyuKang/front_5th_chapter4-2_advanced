@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export const ScheduleTables = () => {
   const { schedulesMap, setSchedulesMap } = useScheduleContext();
+
   const [searchInfo, setSearchInfo] = useState<{
     tableId: string;
     day?: string;

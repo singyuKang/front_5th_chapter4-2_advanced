@@ -12,9 +12,9 @@ import {
   PopoverTrigger,
   Text,
 } from "@chakra-ui/react";
-import { CellSize, DAY_LABELS, 분 } from "@/constants/constants.ts";
+import { CellSize, DAY_LABELS, TIMES } from "@/constants/constants.ts";
 import { Schedule } from "@/types/types.ts";
-import { fill2, parseHnM } from "@/utils/utils.ts";
+import { fill2 } from "@/utils/utils.ts";
 import { useDndContext, useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { ComponentProps, Fragment } from "react";
@@ -25,18 +25,6 @@ interface Props {
   onScheduleTimeClick?: (timeInfo: { day: string; time: number }) => void;
   onDeleteButtonClick?: (timeInfo: { day: string; time: number }) => void;
 }
-
-const TIMES = [
-  ...Array(18)
-    .fill(0)
-    .map((v, k) => v + k * 30 * 분)
-    .map((v) => `${parseHnM(v)}~${parseHnM(v + 30 * 분)}`),
-
-  ...Array(6)
-    .fill(18 * 30 * 분)
-    .map((v, k) => v + k * 55 * 분)
-    .map((v) => `${parseHnM(v)}~${parseHnM(v + 50 * 분)}`),
-] as const;
 
 const ScheduleTable = ({
   tableId,
