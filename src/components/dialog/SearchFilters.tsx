@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { DAY_LABELS, TIME_SLOTS } from "@/constants/constants.ts";
 import { SearchOption } from "@/components/dialog/types";
+import { memo } from "react";
 
 interface SearchFiltersProps {
   searchOptions: SearchOption;
@@ -198,4 +199,4 @@ const SearchFilters = ({
   );
 };
 
-export default SearchFilters;
+export default memo(SearchFilters);

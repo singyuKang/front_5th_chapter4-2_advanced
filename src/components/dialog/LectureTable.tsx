@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, memo } from "react";
 import { Box, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 import { Lecture } from "@/types/types.ts";
 import LectureTableRow from "./LectureTableRow";
@@ -52,4 +52,4 @@ const LectureTable = forwardRef<HTMLDivElement, LectureTableProps>(
 
 LectureTable.displayName = "LectureTable";
 
-export default LectureTable;
+export default memo(LectureTable);

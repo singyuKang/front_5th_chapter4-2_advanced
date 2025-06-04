@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Button, Td, Tr } from "@chakra-ui/react";
 import { Lecture } from "@/types/types.ts";
 
@@ -37,4 +37,4 @@ const LectureTableRow = React.memo(
 
 LectureTableRow.displayName = "LectureTableRow";
 
-export default LectureTableRow;
+export default memo(LectureTableRow);
