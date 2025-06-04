@@ -10,7 +10,7 @@ interface SearchInfo {
 }
 
 export const useScheduleManagement = (
-  searchInfo?: SearchInfo,
+  searchInfo?: SearchInfo | null,
   onClose?: () => void
 ) => {
   const { setSchedulesMap } = useScheduleContext();

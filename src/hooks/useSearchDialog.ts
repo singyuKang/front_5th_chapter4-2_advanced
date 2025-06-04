@@ -16,14 +16,14 @@ interface SearchInfo {
 }
 
 export const useSearchDialog = (
-  searchInfo?: SearchInfo,
+  searchInfo?: SearchInfo | null,
   onClose?: () => void
 ) => {
   // 개별 hooks 사용
   const { lectures, allMajors } = useLectureData();
   const { searchOptions, changeSearchOption } = useSearchOptions(searchInfo);
   const filteredLectures = useFilteredLectures(lectures, searchOptions);
-  const { page, setPage, lastPage, visibleItems, resetPage } = usePagination(
+  const { setPage, lastPage, visibleItems, resetPage } = usePagination(
     filteredLectures.length,
     PAGE_SIZE,
     searchOptions // searchOptions가 변경되면 페이지 리셋
