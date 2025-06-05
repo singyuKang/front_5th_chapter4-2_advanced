@@ -2,6 +2,7 @@ import { Schedule } from "@/types/types.ts";
 import { useDndContext } from "@dnd-kit/core";
 import DraggableSchedule from "./DraggableSchedule";
 import ScheduleTableContainer from "./ScheduleTableContainer";
+import { useMemo } from "react";
 
 interface Props {
   tableId: string;
@@ -16,24 +17,42 @@ const ScheduleTable = ({
   onScheduleTimeClick,
   onDeleteButtonClick,
 }: Props) => {
-  const getColor = (lectureId: string): string => {
-    const lectures = [...new Set(schedules.map(({ lecture }) => lecture.id))];
-    const colors = ["#fdd", "#ffd", "#dff", "#ddf", "#fdf", "#dfd"];
-    return colors[lectures.indexOf(lectureId) % colors.length];
-  };
-
   const dndContext = useDndContext();
 
-  const getActiveTableId = () => {
+  const colorMap = useMemo(() => {
+    const lectures = [...new Set(schedules.map(({ lecture }) => lecture.id))];
+    const colors = ["#fdd", "#ffd", "#dff", "#ddf", "#fdf", "#dfd"];
+    return lectures.reduce((acc, lectureId, index) => {
+      acc[lectureId] = colors[index % colors.length];
+      return acc;
+    }, {} as Record<string, string>);
+  }, [schedules]);
+
+  const activeTableId = useMemo(() => {
     const activeId = dndContext.active?.id;
     if (activeId) {
       return String(activeId).split(":")[0];
     }
     return null;
-  };
+  }, [dndContext.active?.id]);
 
-  const activeTableId = getActiveTableId();
   const isActive = activeTableId === tableId;
+
+  const scheduleItems = useMemo(
+    () =>
+      schedules.map((schedule, index) => ({
+        key: `${schedule.lecture.id}-${schedule.day}-${schedule.range[0]}`,
+        id: `${tableId}:${index}`,
+        data: schedule,
+        bg: colorMap[schedule.lecture.id],
+        onDeleteButtonClick: () =>
+          onDeleteButtonClick?.({
+            day: schedule.day,
+            time: schedule.range[0],
+          }),
+      })),
+    [schedules, tableId, colorMap, onDeleteButtonClick]
+  );
 
   return (
     <ScheduleTableContainer
@@ -41,18 +60,13 @@ const ScheduleTable = ({
       isActive={isActive}
       onScheduleTimeClick={onScheduleTimeClick}
     >
-      {schedules.map((schedule, index) => (
+      {scheduleItems.map((item) => (
         <DraggableSchedule
-          key={`${schedule.lecture.title}-${index}`}
-          id={`${tableId}:${index}`}
-          data={schedule}
-          bg={getColor(schedule.lecture.id)}
-          onDeleteButtonClick={() =>
-            onDeleteButtonClick?.({
-              day: schedule.day,
-              time: schedule.range[0],
-            })
-          }
+          key={item.key}
+          id={item.id}
+          data={item.data}
+          bg={item.bg}
+          onDeleteButtonClick={item.onDeleteButtonClick}
         />
       ))}
     </ScheduleTableContainer>
