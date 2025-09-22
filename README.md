@@ -76,6 +76,7 @@ export const fetchAllLectures = async () => {
 또한 **await를 각 호출 앞에서 제거**하고, **Promise.all()**로 병렬 처리 구현하였습니다.
 
 <img width="564" alt="스크린샷 2025-06-06 오전 1 40 46" src="https://github.com/user-attachments/assets/e79f8dba-e4ae-468a-8f75-ff4246f8601e" />
+<img width="564" height="327" alt="Image" src="https://github.com/user-attachments/assets/599b79ea-ef3a-40e9-9869-40407d90cf85" />
 
 ### 📉 API 호출 시간
 **199.89ms** → **136.60ms**로 약 **32%** 성능 개선
