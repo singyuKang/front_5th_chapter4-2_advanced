@@ -124,8 +124,8 @@ const filteredLectures = useMemo(() => {
 ## SearchDialog 최적화
 
 ### pagination 최적화
-<img width="394" alt="스크린샷 2025-06-06 오전 2 23 17" src="https://github.com/user-attachments/assets/d99187b5-94d4-4add-9aed-3708edff95eb" />
-<img width="778" alt="스크린샷 2025-06-06 오전 2 23 36" src="https://github.com/user-attachments/assets/9039186a-20e9-4d58-9580-220d79000394" />
+<img width="394" height="656" alt="Image" src="https://github.com/user-attachments/assets/519ffa4f-b91d-42c8-b46d-60e5500873ed" />
+<img width="778" height="420" alt="Image" src="https://github.com/user-attachments/assets/699d9557-632d-4047-9420-21f07e9923c8" />
 
 제일 아래 스크롤에 도달하게 되면은 다음 페이지 과목을 새로 업데이트하게 되는데 불필요하게 이미 존재하는 **테이블 Row 데이터**와 **테이블 위의 컴포넌트**들이 **렌더링이 발생**하게 됩니다.
 
@@ -163,9 +163,9 @@ const filteredLectures = useMemo(() => {
   );
 ```
 
-<img width="680" alt="스크린샷 2025-06-06 오전 2 37 57" src="https://github.com/user-attachments/assets/41189ca9-5aa9-4270-a2d0-c8201b723d88" />
+<img width="680" height="314" alt="Image" src="https://github.com/user-attachments/assets/ae0d76ab-ebce-4560-b9e5-60030b751dc7" />
 
-<img width="929" alt="스크린샷 2025-06-06 오전 2 41 57" src="https://github.com/user-attachments/assets/748ac1ec-c9b9-4549-be6d-28f09076ce57" />
+<img width="929" height="373" alt="Image" src="https://github.com/user-attachments/assets/ec463b16-2f4e-4fce-9db5-852006350cf0" />
 
 사진에서 보여지는 것처럼 **SearchFilters**와 **이전 컴포넌트들이 렌더링이 발생하지 않은것**을 확인할 수 있으며 성능개선이 이루어진것을 확인하실 수 있습니다.
 
@@ -174,7 +174,7 @@ const filteredLectures = useMemo(() => {
 ### 전공데이터 최적화
 
 **학년 또는 요일 CheckBox**를 누르게 되면은 수많은 전공 데이터들을 **다시 렌더링**하게 되는 문제가 발생합니다.
-<img width="981" alt="스크린샷 2025-06-06 오전 2 50 50" src="https://github.com/user-attachments/assets/f24ecf4f-c26e-47b1-b292-4874f0ed740c" />
+<img width="981" height="223" alt="Image" src="https://github.com/user-attachments/assets/f96e106b-c409-462a-aad3-69841ffc96ae" />
 
 
 위와 마찬가지로 하나의 컴포넌트를 **3개**의 컴포넌트로 분리하여 **memo 작업**을 진행하였습니다.
@@ -201,14 +201,14 @@ const filteredLectures = useMemo(() => {
     </VStack>
 ```
 
-<img width="451" alt="스크린샷 2025-06-06 오전 2 52 08" src="https://github.com/user-attachments/assets/0f086ec8-652e-43da-add2-6740d7655964" />
+<img width="451" height="349" alt="Image" src="https://github.com/user-attachments/assets/56d3798d-9425-47ae-86a8-4bb719212704" />
 
-<img width="646" alt="스크린샷 2025-06-06 오전 2 53 59" src="https://github.com/user-attachments/assets/8a87ed2d-8537-40c2-ad68-5d1839b6751b" />
+<img width="646" height="321" alt="Image" src="https://github.com/user-attachments/assets/ce66c256-20e9-4a93-8fb8-9643a353bf66" />
 
 
 ## DraggableSchedule 최적화
 
-<img width="537" alt="스크린샷 2025-06-06 오전 3 12 56" src="https://github.com/user-attachments/assets/c92daf1b-bb80-4048-a79f-c0692d3824ce" />
+<img width="537" height="275" alt="Image" src="https://github.com/user-attachments/assets/1a479fb3-a5c2-44e1-92a4-625c6ceca2e6" />
 
 드래그를 통해 수업을 옮기게 되면은 **다른 시간표 영역에서도 모두 리렌더링**이 발생하여 성능 저하가 발생합니다.
 
@@ -239,8 +239,8 @@ const scheduleItems = useMemo(() =>
 , [schedules, tableId, colorMap, onDeleteButtonClick]);
 ```
 
-<img width="740" alt="스크린샷 2025-06-06 오전 3 14 44" src="https://github.com/user-attachments/assets/73356b26-13a3-496a-a511-902ed87c5fdc" />
+<img width="740" height="396" alt="Image" src="https://github.com/user-attachments/assets/70458e45-90d7-4c68-a41c-39c6868999c8" />
 
-<img width="632" alt="스크린샷 2025-06-06 오전 3 18 56" src="https://github.com/user-attachments/assets/9f27f715-ead4-4ef0-9397-7e85d624ccd5" />
+<img width="632" height="390" alt="Image" src="https://github.com/user-attachments/assets/9e6b4357-94df-4ad2-b502-8ca70a78f5a7" />
 
 
