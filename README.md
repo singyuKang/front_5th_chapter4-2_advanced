@@ -75,7 +75,6 @@ export const fetchAllLectures = async () => {
 
 또한 **await를 각 호출 앞에서 제거**하고, **Promise.all()**로 병렬 처리 구현하였습니다.
 
-<img width="564" alt="스크린샷 2025-06-06 오전 1 40 46" src="https://github.com/user-attachments/assets/e79f8dba-e4ae-468a-8f75-ff4246f8601e" />
 <img width="564" height="327" alt="Image" src="https://github.com/user-attachments/assets/599b79ea-ef3a-40e9-9869-40407d90cf85" />
 
 ### 📉 API 호출 시간
@@ -85,7 +84,7 @@ export const fetchAllLectures = async () => {
 ## 불필요한 연산 최적화
 
 ### 컴포넌트 분리
-<img width="196" alt="스크린샷 2025-06-06 오전 1 55 48" src="https://github.com/user-attachments/assets/6574e155-8fcd-4636-b260-b85116cbfbe5" />
+<img width="196" height="331" alt="Image" src="https://github.com/user-attachments/assets/5067cf94-6ecc-4346-aaf0-496e0821e4b4" />
 
 3주차 강의에서 **컴포넌트가 잘 분리되어 있어야 최적화가 쉬워진다**는 내용이 기억나 리팩토링을 다음과같이 먼저 진행하였습니다.
 
